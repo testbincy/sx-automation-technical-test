@@ -1,5 +1,4 @@
 import path from 'path';
-import { hooks } from './src/support/hooks';
 import fs from 'fs';
 
 const allure = require('allure-commandline')
@@ -91,7 +90,7 @@ export const config: WebdriverIO.Config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'http://localhost:8080',
+    baseUrl: 'https://sxmicrofrontends.z8.web.core.windows.net/login',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -183,7 +182,6 @@ export const config: WebdriverIO.Config = {
         // <number> timeout for step definitions
         timeout: 20000,
     } as WebdriverIO.CucumberOpts,
-    ...hooks,
 
     afterStep: function (test, scenario, { error, duration, passed }) {
         if (error) {

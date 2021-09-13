@@ -2,7 +2,7 @@
 Feature: authentication-happy-path-behavior
     As an underwriter
     I want to login into the application
-    to underwrite a policy
+    Because I want to underwrite a policy
 
     @severity=Blocker
     Scenario: Users can log into the application
