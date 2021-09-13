@@ -3,6 +3,12 @@ import fs from 'fs';
 
 const allure = require('allure-commandline')
 
+const drivers = {
+    chrome: { version: '91.0.4472.101' }, // https://chromedriver.chromium.org/
+    firefox: { version: '0.29.1' }, // https://github.com/mozilla/geckodriver/releases
+    chromiumedge: { version: '85.0.564.70' } // https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
+}
+
 export const config: WebdriverIO.Config = {
     //
     // ====================
@@ -51,11 +57,7 @@ export const config: WebdriverIO.Config = {
     // https://docs.saucelabs.com/reference/platforms-configurator
     //
     capabilities: [{
-        maxInstances: 1,
-        browserName: 'chrome',
-        'goog:chromeOptions': {
-            args: [],
-        }
+        browserName: 'chrome'
     }],
     //
     // ===================
@@ -90,7 +92,7 @@ export const config: WebdriverIO.Config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'https://sxmicrofrontends.z8.web.core.windows.net/login',
+    baseUrl: 'https://sxmicrofrontends.z8.web.core.windows.net',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -106,8 +108,13 @@ export const config: WebdriverIO.Config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
+    
     services: [
-        ['selenium-standalone', { drivers: { chrome: true } }]
+        ['selenium-standalone', {
+            logPath: 'logs',
+            installArgs: { drivers }, // drivers to install
+            args: { drivers } // drivers to use
+        }]
     ],
     //
     // Framework you want to run your specs with.
@@ -160,7 +167,7 @@ export const config: WebdriverIO.Config = {
         profile: [],
         // <string[]> (file/dir) require files before executing features
         require: [
-            './src/steps/given.ts',
+            // './src/steps/given.ts',
             './src/steps/then.ts',
             './src/steps/when.ts',
             // Or search a (sub)folder for JS files with a wildcard

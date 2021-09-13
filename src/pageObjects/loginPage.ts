@@ -1,6 +1,6 @@
-import BasePage from './basePage';
+import Page from './page';
 
-class LoginPage extends BasePage {
+class LoginPage extends Page {
 }
 
 export default new LoginPage()
